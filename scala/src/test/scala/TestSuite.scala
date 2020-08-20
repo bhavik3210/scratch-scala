@@ -109,5 +109,19 @@ class TestSuite extends AnyFunSuite {
     assert(zeroNumber == 0, true)
     assert(positiveNumber == 5, true)
     assert(positiveNumber != 4, true)
+
+    val zeroNumberProduct = UtilFunctions.product(0, 4)
+    val positiveNumberProduct = UtilFunctions.productShort(4, 2)
+
+    assert(zeroNumberProduct == 0, true)
+    assert(zeroNumberProduct != 4, true)
+    assert(positiveNumberProduct != 4, true)
+    assert(positiveNumberProduct != 2, true)
+    assert(positiveNumberProduct == 8, true)
   }
+
+
+
+
+
 }
