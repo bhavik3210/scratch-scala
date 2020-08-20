@@ -143,6 +143,36 @@ class TestSuite extends AnyFunSuite {
     assert(similarFilteredList.size != fruitBasket.size, false)
   }
 
+  test("companion class and object") {
+    val result = Math.sum(10, 10)
+    val resultMax = Math.getPrivateMember
+
+    assert(result == 20, true)
+    assert(resultMax == 100, true)
+
+    val person = Person("First", "Last")
+    val name = person.getName
+    assert(name == "First Last", true)
+  }
+
+  /**
+   * - companion objects and apply comes with it
+   * - immutable arguments in parameter list
+   * - copy method to make modified copies
+   * - other functionality by default
+   * - pattern matching
+   */
+  test("case classes") {
+    val scalaCourseA = Course("Scala Course", "Some Guy")
+    val scalaCourseB = Course("Scala Course", "Some Guy")
+    val kotlinCourse = Course("Kotlin Course", "Some Guy")
+
+    assert(scalaCourseA == scalaCourseB, true)
+    assert(scalaCourseA == kotlinCourse, false)
+    assert(scalaCourseA.title == "Scala Course", true)
+    assert(scalaCourseA.author == "Some Guy", true)
+    assert(kotlinCourse == kotlinCourse.copy(), true)
+  }
 
 
 
