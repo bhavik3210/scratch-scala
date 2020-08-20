@@ -1,3 +1,4 @@
+import UtilFunctions._
 import org.scalatest.funsuite.AnyFunSuite
 
 import scala.collection.mutable.ListBuffer
@@ -103,9 +104,9 @@ class TestSuite extends AnyFunSuite {
   }
 
   test("test basic function") {
-    val negativeNumber = UtilFunctions.plusOneOrZero(-1)
-    val zeroNumber = UtilFunctions.plusOneOrZero(0)
-    val positiveNumber = UtilFunctions.plusOneOrZero(4)
+    val negativeNumber = plusOneOrZero(-1)
+    val zeroNumber = plusOneOrZero(0)
+    val positiveNumber = plusOneOrZero(4)
 
     assert(negativeNumber == 0, true)
     assert(negativeNumber != -1, true)
@@ -113,9 +114,9 @@ class TestSuite extends AnyFunSuite {
     assert(positiveNumber == 5, true)
     assert(positiveNumber != 4, true)
 
-    val zeroNumberProduct = UtilFunctions.product(0, 4)
-    val positiveNumberProduct = UtilFunctions.productShort(4, 2)
-    val productAnonymous = UtilFunctions.productAnnonymous(4, 2)
+    val zeroNumberProduct = product(0, 4)
+    val positiveNumberProduct = productShort(4, 2)
+    val productAnonymous = productAnnonymous(4, 2)
 
     assert(zeroNumberProduct == 0, true)
     assert(zeroNumberProduct != 4, true)
@@ -171,7 +172,7 @@ class TestSuite extends AnyFunSuite {
     val kotlinCourse = Course("Kotlin Course", "Some Guy")
 
     assert(scalaCourseA == scalaCourseB, true)
-    assert(scalaCourseA == kotlinCourse, false)
+    assert(scalaCourseA != kotlinCourse, false)
     assert(scalaCourseA.title == "Scala Course", true)
     assert(scalaCourseA.author == "Some Guy", true)
     assert(kotlinCourse == kotlinCourse.copy(), true)
@@ -210,12 +211,38 @@ class TestSuite extends AnyFunSuite {
   }
 
   test("Either") {
-    val numberReturned = UtilFunctions.stringToInt("5")
-    val notANumberReturned = UtilFunctions.stringToInt("e")
+    val numberReturned = stringToInt("5")
+    val notANumberReturned = stringToInt("e")
 
     assert(numberReturned == Right(5), true)
     assert(notANumberReturned == Left("Error: For input string: \"e\""), true)
   }
 
+  test("pattern match") {
+    val number = 5
+    val number2 = 2
+
+    val number5InWord = matchNumber(number)
+    val number2InWord = matchNumber(number2)
+
+    assert(number5InWord == "five", true)
+    assert(number2InWord == "nothing matched but matched anything/leave it as a last case for matching otherwise it will short circuit", true)
+  }
+
+  test("pattern match 2") {
+    val programmingInScala = Book("Programming in Scala", "2016", "Martin", "0998092323")
+    val programmingNotInScala = Book("Programming not in Scala", "2017", "Martin", "0998092323")
+    val programmingNoMore = Book("Programming no more", "2050", "Martin", "0998092323")
+
+    val result1 = matchBooksFull(programmingInScala)
+    val result2 = matchBooksPartial(programmingNoMore)
+
+    assert(result1 == "Programming in Scala | 2016 | Martin | 0998092323")
+    assert(result2 == "2050", true)
+  }
+
+  test("pattern match 3") {
+
+  }
 
 }
