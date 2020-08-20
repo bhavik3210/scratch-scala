@@ -112,14 +112,36 @@ class TestSuite extends AnyFunSuite {
 
     val zeroNumberProduct = UtilFunctions.product(0, 4)
     val positiveNumberProduct = UtilFunctions.productShort(4, 2)
+    val productAnonymous = UtilFunctions.productAnnonymous(4, 2)
 
     assert(zeroNumberProduct == 0, true)
     assert(zeroNumberProduct != 4, true)
+
     assert(positiveNumberProduct != 4, true)
     assert(positiveNumberProduct != 2, true)
     assert(positiveNumberProduct == 8, true)
+
+    assert(productAnonymous != 4, true)
+    assert(productAnonymous != 2, true)
+    assert(productAnonymous == 8, true)
   }
 
+  test("anonymous function") {
+    val apple = Fruit("apple")
+    val orange = Fruit("orange")
+    val banana = Fruit("banana")
+    val fruitBasket = List(apple, orange, banana, apple, orange, banana, banana, orange)
+
+    val filteredList = fruitBasket.filter(fruit => fruit.name == "apple")
+
+    assert(filteredList.size == 2, true)
+    assert(filteredList.size != fruitBasket.size, false)
+
+    val similarFilteredList = fruitBasket.filter(_.name == "apple")
+
+    assert(similarFilteredList.size == 2, true)
+    assert(similarFilteredList.size != fruitBasket.size, false)
+  }
 
 
 

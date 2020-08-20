@@ -11,4 +11,8 @@ object UtilFunctions {
   }
 
   def productShort(a: Int, b: Int) = a * b
+
+  def productAnnonymous = (a: Int, b: Int) => a * b
 }
+
+case class Fruit(name: String)
