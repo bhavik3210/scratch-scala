@@ -13,6 +13,14 @@ object UtilFunctions {
   def productShort(a: Int, b: Int) = a * b
 
   def productAnnonymous = (a: Int, b: Int) => a * b
+
+  def stringToInt(in: String): Either[String, Int] = {
+    try {
+      Right(in.toInt)
+    } catch {
+      case e: NumberFormatException => Left(s"Error: ${e.getMessage}")
+    }
+  }
 }
 
 //companion objects

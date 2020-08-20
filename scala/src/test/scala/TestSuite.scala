@@ -1,6 +1,7 @@
 import org.scalatest.funsuite.AnyFunSuite
 
 import scala.collection.mutable.ListBuffer
+import scala.util.{Failure, Success, Try}
 
 class TestSuite extends AnyFunSuite {
 
@@ -66,7 +67,7 @@ class TestSuite extends AnyFunSuite {
       number <- numbers
       letter <- letters
     } numbersAndLettersCombo += s"$number => $letter"
-    assert(numbersAndLettersCombo.size == numbers.size*letters.size, true)
+    assert(numbersAndLettersCombo.size == numbers.size * letters.size, true)
   }
 
   test("test functional loops (yield)") {
@@ -74,7 +75,9 @@ class TestSuite extends AnyFunSuite {
     val numbers = List(1, 2, 3, 4)
 
     //returns a new immuatable copy
-    val numbers3x = for (number <- numbers) yield { number * 3 } //braces are optionals for single
+    val numbers3x = for (number <- numbers) yield {
+      number * 3
+    } //braces are optionals for single
     assert(numbers3x.size == numbers.size, true)
     assert(numbers3x.head == 3, true)
     assert(numbers3x(1) == 6, true)
@@ -85,7 +88,7 @@ class TestSuite extends AnyFunSuite {
     assert(numbers3x(2) != 3, true)
     assert(numbers3x(3) != 4, true)
 
-    val evenNumbers3x = for (number <- numbers if(number % 2 == 0)) yield number * 3
+    val evenNumbers3x = for (number <- numbers if (number % 2 == 0)) yield number * 3
     assert(evenNumbers3x.size != numbers.size, true)
     assert(evenNumbers3x.head == 6, true)
     assert(evenNumbers3x(1) == 12, true)
@@ -96,7 +99,7 @@ class TestSuite extends AnyFunSuite {
       number <- numbers
       letter <- letters
     } yield s"$number => $letter"
-    assert(numbersAndLetters.size == numbers.size*letters.size, true)
+    assert(numbersAndLetters.size == numbers.size * letters.size, true)
   }
 
   test("test basic function") {
@@ -174,6 +177,45 @@ class TestSuite extends AnyFunSuite {
     assert(kotlinCourse == kotlinCourse.copy(), true)
   }
 
+  test("options") {
+    val employees = Set("John", "Sam", "Mary", "Stacie")
+    val someResult = employees.find(_ == "John")
+    val noneResult = employees.find(_ == "Frank") //noneResult is None
+
+    assert(someResult.isInstanceOf[Option[String]], true)
+    assert(someResult.isInstanceOf[Some[String]], true)
+    assert(noneResult.isInstanceOf[Option[String]], true)
+    assert(noneResult.isEmpty, true)
+
+    assert(someResult.isDefined, true)
+    assert(!noneResult.isDefined, false)
+
+    //getOrElse
+    val john = employees.find(_ == "John").getOrElse("Employee not found")
+    val frank = employees.find(_ == "Frank").getOrElse("Employee not found")
+
+    assert(john == "John", true)
+    assert(john != "Employee not found", false)
+    assert(frank == "Employee not found", true)
+    assert(frank != "Frank", true)
+  }
+
+  test("errors and exceptions") {
+    val outcome = Try(10 / 0)
+    assert(!outcome.isSuccess, false)
+    assert(outcome.isFailure, true)
+
+    assert(outcome.isInstanceOf[Failure[String]], true)
+    assert(!outcome.isInstanceOf[Success[String]], false)
+  }
+
+  test("Either") {
+    val numberReturned = UtilFunctions.stringToInt("5")
+    val notANumberReturned = UtilFunctions.stringToInt("e")
+
+    assert(numberReturned == Right(5), true)
+    assert(notANumberReturned == Left("Error: For input string: \"e\""), true)
+  }
 
 
 }
