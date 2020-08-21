@@ -45,7 +45,26 @@ object UtilFunctions {
     }
   }
 
+  def matchNumberList(list: List[Int]): Int = {
+    list match {
+      case List(a, b, c) => b
+      case _ => -1
+    }
+  }
 
+  def matchNumber2List(list: List[Int]): Int = {
+    list match {
+      case List(_, b, _) => b
+      case _ => -1
+    }
+  }
+
+  def matchNumber3List(list: List[Int]): Int = {
+    list match {
+      case List(_, b, _*) => b
+      case _ => -1
+    }
+  }
 }
 
 //companion objects

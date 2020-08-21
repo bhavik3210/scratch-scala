@@ -242,7 +242,18 @@ class TestSuite extends AnyFunSuite {
   }
 
   test("pattern match 3") {
+    val numbers = List(10, 20, 30)
+    val numbersNotMatch = List(10, 20, 30, 43)
 
+    val num = matchNumberList(numbers)
+    val num2 = matchNumber2List(numbers)
+    val num3 = matchNumber3List(numbersNotMatch)
+    val num4 = matchNumber2List(numbersNotMatch)
+
+    assert(num == 20, true)
+    assert(num2 == 20, true)
+    assert(num3 == 20, true)
+    assert(num4 == -1, true)
   }
 
 }
