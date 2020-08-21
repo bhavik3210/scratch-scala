@@ -93,3 +93,10 @@ case class Fruit(name: String)
 case class Course(title: String, author: String)
 
 case class Book(title: String, author: String, yearPublished: String, isbn: String)
+
+case class Trip(to: String)
+case class Car(model: String)
+case class Cash(model: String)
+case class NoPrize()
+
+case class Email(from: String, body: String)

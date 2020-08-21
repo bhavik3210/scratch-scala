@@ -2,7 +2,7 @@ import UtilFunctions._
 import org.scalatest.funsuite.AnyFunSuite
 
 import scala.collection.mutable.ListBuffer
-import scala.util.{Failure, Success, Try}
+import scala.util.{Failure, Random, Success, Try}
 
 class TestSuite extends AnyFunSuite {
 
@@ -256,4 +256,39 @@ class TestSuite extends AnyFunSuite {
     assert(num4 == -1, true)
   }
 
+  test("pattern match 4") {
+    // type matching
+    val randomStuff = List(
+      NoPrize(),
+      Car("Tesla"),
+      Car("Civic"),
+      Cash("Mula"),
+      Trip("Covid19 NO VACAY"),
+      NoPrize(),
+      Trip("Peru")
+    )
+
+    val result = Random.shuffle(randomStuff).take(1)(0) match {
+      case t: Trip => "You have won a trip"
+      case c: Car => "You won a car"
+      case ca: Cash => "You won cash"
+      case n: NoPrize => "SOL, go home!"
+    }
+
+    assert(result == "SOL, go home!", true)
+  }
+
+  test("pattern match 5: Guarding") {
+    val importantContacts = Set("user1@email.com")
+    val importantEmail = Email("user1@email.com", "user1 sent message")
+    val importantEmailNOT = Email("user2@email.com", "user2 sent message")
+
+    def alertOrNoAlert(email: Email) = email match {
+      case Email(from, body) if importantContacts.contains(from) => body
+      case Email(_, _) => "do not disturb I"
+    }
+
+    assert(alertOrNoAlert(importantEmail) == "user1 sent message", true)
+    assert(alertOrNoAlert(importantEmailNOT) == "do not disturb I", true)
+  }
 }
