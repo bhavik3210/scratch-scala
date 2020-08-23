@@ -1,6 +1,7 @@
 import UtilFunctions._
 import org.scalatest.funsuite.AnyFunSuite
 
+import scala.collection.SortedMap
 import scala.collection.mutable.ListBuffer
 import scala.util.{Failure, Random, Success, Try}
 
@@ -290,5 +291,108 @@ class TestSuite extends AnyFunSuite {
 
     assert(alertOrNoAlert(importantEmail) == "user1 sent message", true)
     assert(alertOrNoAlert(importantEmailNOT) == "do not disturb I", true)
+  }
+
+  test("Collections: Lists") {
+    // all of these immutable List will return a new list upon operating on them
+    val numbers = List(1, 2, 3, 4)
+    assert(numbers.head == 1, true)
+    assert(numbers.tail == List(2, 3, 4), true)
+    assert(numbers.init == List(1, 2, 3), true)
+    assert(numbers.last == 4, true)
+
+    assert(numbers :+ 5 == List(1, 2, 3, 4, 5), true)
+    assert(0 +: numbers == List(0, 1, 2, 3, 4), true)
+
+    assert(numbers ++ List(5, 6, 7) == List(1, 2, 3, 4, 5, 6, 7), true)
+    assert(List(-1, 0) ++ numbers == List(-1, 0, 1, 2, 3, 4), true)
+
+    assert(numbers.drop(1) == List(2, 3, 4), true)
+    assert(numbers.drop(2) == List(3, 4), true)
+    assert(numbers.drop(3) == List(4), true)
+    assert(numbers.drop(numbers.size) == List(), true)
+    assert(numbers.dropRight(1) == List(1, 2, 3), true)
+    assert(numbers.dropRight(2) == List(1, 2), true)
+    assert(numbers.dropRight(3) == List(1), true)
+    assert(numbers.dropRight(numbers.size) == List(), true)
+    assert(numbers.dropWhile(_ < 3) == List(3, 4), true)
+    assert(numbers.dropWhile(_ < 2) == List(2, 3, 4), true)
+    assert(numbers.dropWhile(_ < 1) == List(1, 2, 3, 4), true)
+  }
+
+  test("Collections: Set") {
+    val numbers = Set(1, 1, 2, 2, 3, 3, 4, 4, 4)
+    assert(numbers == Set(1, 2, 3, 4), true)
+
+    assert(numbers + 6 == Set(1, 2, 3, 4, 6), true)
+    assert(numbers - 1 == Set(2, 3, 4), true)
+    assert(numbers - 2 == Set(1, 3, 4), true)
+
+    assert(numbers ++ Set(0, 10) == Set(0, 10, 1, 2, 3, 4), true)
+  }
+
+  test("Collections: Map") {
+    val Sunday = "Sunday"
+    val Monday = "Monday"
+    val Tuesday = "Tuesday"
+    val Wednesday = "Wednesday"
+    val Thursday = "Thursday"
+    val Friday = "Friday"
+    val Saturday = "Saturday"
+
+    val weekdays = Map(
+      0 -> Sunday,
+      1 -> Monday,
+      2 -> Tuesday,
+      3 -> Wednesday,
+      4 -> Thursday,
+      5 -> Friday,
+      6 -> Saturday,
+    )
+
+    val sortedWeekdays = SortedMap(
+      0 -> Sunday,
+      1 -> Monday,
+      2 -> Tuesday,
+      3 -> Wednesday,
+      4 -> Thursday,
+      5 -> Friday,
+      6 -> Saturday,
+    )
+
+    assert(weekdays(1) == Monday, true)
+    assert((weekdays + (7 -> "Not A WeekDay")).size == 8, true)
+    assert((weekdays - 1).size != 7, false)
+    assert((weekdays - 1).size == 6, true)
+
+    weekdays.foreach(day => println(s"${day._1} >-< ${day._2}"))
+    print("\nSorted Weekdays \n")
+    sortedWeekdays.foreach(day => println(s"${day._1} >-< ${day._2}"))
+  }
+
+  test("Collections: Tuple") {
+    val tuple = (10, 20, 30)
+    assert(tuple._1 == 10, true)
+    assert(tuple._2 == 20, true)
+    assert(tuple._3 == 30, true)
+  }
+
+  test("Collections: Operations") {
+    // operations on collections are available to all types of collections i.e. List, Set, Map, etc.
+    val numbers = List(2, 3, 1)
+    assert(numbers.sum == 6, true)
+    assert(numbers.product == 6, true)
+    assert(numbers.min == 1, true)
+    assert(numbers.max == 3, true)
+
+    assert(numbers.filter(num => num < 3) == List(2, 1), true)
+    assert(numbers.filter(_ < 3) == List(2, 1), true)
+    assert(numbers.filter(_ < 3).min == 1, true)
+    assert(numbers.filter(_ < 3).max == 2, true)
+  }
+
+  test("Collections: Transformation") {
+    // operations for converting from one type of collection to the other
+
   }
 }
