@@ -1,3 +1,5 @@
+package basics
+
 object UtilFunctions {
 
   //explicit return type
@@ -6,13 +8,13 @@ object UtilFunctions {
   }
 
   //inferred return type
-  def product(a: Int, b: Int) = {
+  def product(a: Int, b: Int): Int = {
     a * b
   }
 
-  def productShort(a: Int, b: Int) = a * b
+  def productShort(a: Int, b: Int): Int = a * b
 
-  def productAnnonymous = (a: Int, b: Int) => a * b
+  def productAnnonymous: (Int, Int) => Int = (a: Int, b: Int) => a * b
 
   def stringToInt(in: String): Either[String, Int] = {
     try {
@@ -71,7 +73,7 @@ object UtilFunctions {
 object Math {
   def sum(a: Int, b: Int): Int = a + b
 
-  def getPrivateMember = new Math().max
+  def getPrivateMember: Int = new Math().max
 }
 
 class Math {
@@ -95,8 +97,11 @@ case class Course(title: String, author: String)
 case class Book(title: String, author: String, yearPublished: String, isbn: String)
 
 case class Trip(to: String)
+
 case class Car(model: String)
+
 case class Cash(model: String)
+
 case class NoPrize()
 
 case class Email(from: String, body: String)

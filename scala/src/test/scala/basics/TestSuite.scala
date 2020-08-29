@@ -1,13 +1,13 @@
-import java.util.Date
+package basics
 
-import UtilFunctions._
+import basics.UtilFunctions._
 import org.scalatest.funsuite.AnyFunSuite
 
 import scala.collection.SortedMap
 import scala.collection.mutable.ListBuffer
-import scala.concurrent.{Future, Promise}
 import scala.concurrent.ExecutionContext.Implicits.global
-import scala.util.{Failure, Random, Success, Try}
+import scala.concurrent.{Future, Promise}
+import scala.util.{Failure, Success, Try}
 
 class TestSuite extends AnyFunSuite {
 
@@ -50,7 +50,7 @@ class TestSuite extends AnyFunSuite {
     val mutableEvenNumbers = new ListBuffer[Int]()
     for (
       number <- numbers
-      if (number % 2 == 0)
+      if number % 2 == 0
     ) {
       mutableEvenNumbers += number
     }
@@ -60,8 +60,8 @@ class TestSuite extends AnyFunSuite {
     val mutableEvenNumbersGreaterThanTwo = ListBuffer[Int]()
     for (
       number <- numbers
-      if (number % 2 == 0)
-      if (number > 2)
+      if number % 2 == 0
+      if number > 2
     ) {
       mutableEvenNumbersGreaterThanTwo += number
     }
@@ -94,7 +94,7 @@ class TestSuite extends AnyFunSuite {
     assert(numbers3x(2) != 3, true)
     assert(numbers3x(3) != 4, true)
 
-    val evenNumbers3x = for (number <- numbers if (number % 2 == 0)) yield number * 3
+    val evenNumbers3x = for (number <- numbers if number % 2 == 0) yield number * 3
     assert(evenNumbers3x.size != numbers.size, true)
     assert(evenNumbers3x.head == 6, true)
     assert(evenNumbers3x(1) == 12, true)
@@ -153,8 +153,8 @@ class TestSuite extends AnyFunSuite {
   }
 
   test("companion class and object") {
-    val result = Math.sum(10, 10)
-    val resultMax = Math.getPrivateMember
+    val result = basics.Math.sum(10, 10)
+    val resultMax = basics.Math.getPrivateMember
 
     assert(result == 20, true)
     assert(resultMax == 100, true)
@@ -517,7 +517,7 @@ class TestSuite extends AnyFunSuite {
 
 
     val fallbackFuture = Future.successful(100)
-    val computation = Future { 1 / 0} fallbackTo(fallbackFuture)
+    val computation = Future { 1 / 0} fallbackTo fallbackFuture
   }
 
 
