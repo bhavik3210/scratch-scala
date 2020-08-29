@@ -273,7 +273,7 @@ class TestSuite extends AnyFunSuite {
       Trip("Peru")
     )
 
-    val result = Random.shuffle(randomStuff).take(1)(0) match {
+    val result = randomStuff.take(1)(0) match {
       case t: Trip => "You have won a trip"
       case c: Car => "You won a car"
       case ca: Cash => "You won cash"
