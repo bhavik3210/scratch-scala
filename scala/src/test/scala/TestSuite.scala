@@ -1,8 +1,12 @@
+import java.util.Date
+
 import UtilFunctions._
 import org.scalatest.funsuite.AnyFunSuite
 
 import scala.collection.SortedMap
 import scala.collection.mutable.ListBuffer
+import scala.concurrent.{Future, Promise}
+import scala.concurrent.ExecutionContext.Implicits.global
 import scala.util.{Failure, Random, Success, Try}
 
 class TestSuite extends AnyFunSuite {
@@ -437,4 +441,84 @@ class TestSuite extends AnyFunSuite {
     assert(arguments.map(convertToInt).flatten.sum == 15, true)
     assert(arguments.flatMap(convertToInt).sum == 15, true)
   }
+
+  test("Concurrency: Future") {
+    val fut = Future {
+      Thread.sleep(10000)
+      21 + 21
+    }
+    // fut will complete after few seconds and return 42
+    // fut.isCompleted returns if future is completed
+    // when fut is completed you can get value by using fut.value
+
+    fut.onComplete({
+      case Success(result) => assert(result == 42, true)
+      case Failure(e) => assert(e != "42", false)
+    })
+  }
+
+  test("Concurrency: Future Transformation") {
+    val salary = Future {
+      Thread.sleep(20000)
+      4000
+    }
+
+    val bonus = 500
+    val salaryWithBonus = salary.map(value => value + 500)
+
+    def getTotal = {
+      val productPrice = Future {
+        Thread.sleep(500); 150
+      }
+      val prodTax = Future {
+        Thread.sleep(500); 5.50
+      }
+      for {
+        price <- productPrice
+        tax <- prodTax
+      } yield price + tax
+    }
+
+    Future {
+      Thread.sleep(6500)
+      assert(getTotal == 15.50, true)
+    }
+  }
+
+  test("Concurrency: Future filter") {
+    val salary = Future {
+      Thread.sleep(20000)
+      4000
+    }
+
+    val largeSalary = salary.filter(_ > 5000)
+
+    //all in one
+    val salaryFuture = Future {
+      Thread.sleep(5400)
+      3000
+    }
+
+    val incrementedSalary = salaryFuture.collect { case salary if salary < 5000 => salary + 1000 }
+  }
+
+  test("Concurrency: Promises with success/failure and failure with recovery with fallback futures") {
+    val promise = Promise[Int]
+
+    promise.future
+    promise.future.value
+    promise.success(100)
+
+    val failedFuture = Future { 10 / 0 }
+
+    failedFuture.value
+
+    val failedException = failedFuture.failed
+
+
+    val fallbackFuture = Future.successful(100)
+    val computation = Future { 1 / 0} fallbackTo(fallbackFuture)
+  }
+
+
 }
