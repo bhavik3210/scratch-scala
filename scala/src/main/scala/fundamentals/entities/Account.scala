@@ -10,16 +10,16 @@ abstract class Account {
 
 class DepositAccount(val customer: Customer, val product: Product, private var balance: MoneyAmount) extends Account {
 
-  def deposit(amount: Double): Unit = {
-    require(amount > 0.0, "amount should be higher than 0")
-    println(s"Depositing $amount to $customer account")
-    balance += amount
+  def deposit(money: MoneyAmount): Unit = {
+    require(money.amount > 0.0, "amount should be higher than 0")
+    println(s"Depositing $money to $customer account")
+    balance += money
   }
 
-  def withdraw(amount: Double): Unit = {
-    require(amount > 0 && amount < balance.amount, "insufficient funds")
-    println(s"Withdrawing $amount to $customer account")
-    balance -= amount
+  def withdraw(money: MoneyAmount): Unit = {
+    require(money.amount > 0 && money.amount < balance.amount, "insufficient funds")
+    println(s"Withdrawing $money to $customer account")
+    balance -= money
   }
 
   override def getBalance: MoneyAmount = balance
@@ -29,16 +29,16 @@ class DepositAccount(val customer: Customer, val product: Product, private var b
 
 class LendingAccount(val customer: Customer, val product: Product, private var balance: MoneyAmount) extends Account {
 
-  def payBill(amount: Double): Unit = {
-    require(amount > 0, "payment must be higher than 0")
-    println(s"Paying bill of $amount against $customer account")
-    balance += amount
+  def payBill(money: MoneyAmount): Unit = {
+    require(money.amount > 0, "payment must be higher than 0")
+    println(s"Paying bill of $money against $customer account")
+    balance += money
   }
 
-  def withdraw(amount: Double): Unit = {
-    require(amount > 0, "withdraw must be higher than 0")
-    println(s"debiting $amount from $customer account")
-    balance -= amount
+  def withdraw(money: MoneyAmount): Unit = {
+    require(money.amount > 0, "withdraw must be higher than 0")
+    println(s"debiting $money.am from $customer account")
+    balance -= money
   }
 
   override def getBalance: MoneyAmount = balance

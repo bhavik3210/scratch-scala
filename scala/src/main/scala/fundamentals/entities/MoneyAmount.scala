@@ -5,11 +5,11 @@ object MoneyAmount {
 }
 
 class MoneyAmount(val amount: Double) extends AnyVal {
-  def +(value: Double): MoneyAmount = new MoneyAmount(amount + value)
+  def +(money: MoneyAmount): MoneyAmount = new MoneyAmount(amount + money.amount)
 
-  def -(value: Double): MoneyAmount = new MoneyAmount(amount - value)
+  def -(money: MoneyAmount): MoneyAmount = new MoneyAmount(amount - money.amount)
 
-  def >(value: Double): Boolean = amount > value
+  def >(money: MoneyAmount): Boolean = amount > money.amount
 
-  override def toString: String = "$" + f"$amount%.2f"
+  override def toString: String =  f"$amount%.2f"
 }
