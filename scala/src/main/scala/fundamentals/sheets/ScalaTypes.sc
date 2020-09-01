@@ -1,5 +1,6 @@
 import scala.math.E
 import scala.language.postfixOps
+import scala.annotation.tailrec
 
 println("================================= Types =================================")
 println("=========================================================================")
@@ -90,15 +91,15 @@ text toString
 
 println("================================= creating your own value class =================================")
 println("=================================================================================================")
-class Quantity(val n: Int) extends AnyVal {
-  def +(q: Quantity): Quantity = new Quantity(n + q.n)
-}
-
-val q1 = new Quantity(10)
-val q2 = new Quantity(20)
-
-val q3 = q1 + q2
-q3.n
+//class Quantity(val n: Int) extends AnyVal {
+//  def +(q: Quantity): Quantity = new Quantity(n + q.n)
+//}
+//
+//val q1 = new Quantity(10)
+//val q2 = new Quantity(20)
+//
+//val q3 = q1 + q2
+//q3.n
 
 
 
@@ -148,4 +149,68 @@ val s8 = addSum _
 
 s7(1,2,3)
 s8(1,2,3)
+
+
+println("===================================================== closures =================================================")
+println("================================================================================================================")
+var y = 99
+val sum = (x: Int) => x + y
+sum(1)
+
+var case1Free = 20
+val case1Sum = (x: Int) => x + case1Free
+case1Sum(80)
+case1Free = 10
+case1Sum(80)
+
+var case2Sum = 0
+val calculateSum = (numbers: Seq[Int]) => numbers.foreach(case2Sum += _)
+calculateSum(Seq(1,2,3,4,5,6,7,8,9,10))
+case2Sum
+
+def multiplier(factor: Int) = (x: Int) => x * factor
+val double = multiplier(2)
+val triple = multiplier(3)
+double(2)
+triple(3)
+
+
+println("===================================================== function arguments =================================================")
+println("================================================================================================================")
+
+println("=============== w/out repeated parameters ================")
+def lengthOfStrings(strings: Seq[String]): Unit =
+  strings.foreach( s => println(s"${s} -> ${s.length}"))
+lengthOfStrings(Seq("a", "bb", "ccc"))
+
+println("=============== with repeated parameters ================")
+def lengthOfStringsR(strings: String*): Unit =
+  strings.foreach( s => println(s"${s} -> ${s.length}"))
+lengthOfStrings(strings = Seq("a", "bb", "ccc"))
+
+println("=============== with repeated parameters but caller has array ================")
+def incrementBy1(nums: Int*) = nums.map(_ + 1)
+val arr = Array(1,2,3,4,5)
+incrementBy1(arr: _*)
+
+
+println("===================================================== recursion =================================================")
+println("================================================================================================================")
+val n = 5
+def sumR(n: Int): Int = {
+  if (n == 1) 1
+  else n + sumR(n-1)
+}
+sumR(10)
+
+println("=============== tail recursion ================")
+def sumTR(n: Int): Int = {
+  @tailrec
+  def go(currentNum: Int, totalSoFar: Int = 0): Int = {
+    if(currentNum == 0) totalSoFar
+    else go(currentNum -1, totalSoFar + currentNum)
+  }
+  go(n)
+}
+sumTR(10)
 

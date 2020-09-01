@@ -1,6 +1,9 @@
 package fundamentals.entities
 
+import java.util.UUID
+
 abstract class Account {
+  val id: UUID = UUID.randomUUID()
   val customer: Customer
   val product: Product
 
