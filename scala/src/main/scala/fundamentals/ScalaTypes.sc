@@ -82,3 +82,39 @@ val q2 = new Quantity(20)
 
 (q1 + q2).n
 
+// function literal
+val multiply = (a: Int, b: Int) => a * b
+
+multiply // functional value is an object
+
+multiply(2, 10) //function value is a function
+
+// partially applied functions
+def addSum(a: Int, b: Int, c: Int) = a + b + c
+
+// when all arguments are supplied
+val s1 = addSum(1, 2, 3)
+
+// when one argument is not supplied
+val s2 = addSum(_: Int, 2, 3)
+val s3 = addSum(1, _: Int, 3)
+val s4 = addSum(1, 2, _: Int)
+
+s1
+s2(1)
+s3(2)
+s4(3)
+
+// when 2 arguments are not applied
+val s5 = addSum(_: Int, _: Int, 3)
+val s6 = addSum(1, _: Int, _: Int)
+s5(1, 2)
+s6(2, 3)
+
+// whn no arguments are applied
+val s7 = addSum(_:Int, _:Int, _:Int)
+// underscore represent the entire parametner list
+val s8 = addSum _
+
+s7(1,2,3)
+s8(1,2,3)
