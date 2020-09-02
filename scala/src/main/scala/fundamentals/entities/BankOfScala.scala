@@ -59,6 +59,8 @@ object BankOfScala {
     depositAccountIds.foreach(bank deposit(_, MoneyAmount(1 + randomAmount.nextInt(100))))
     depositAccountIds.foreach(bank withdraw(_, MoneyAmount(1 + randomAmount.nextInt(50))))
 
+    lendingAccountIds.foreach(bank useCreditCard(_, MoneyAmount(1 + randomAmount.nextInt(500))))
+    lendingAccountIds.foreach(bank payCreditCard(_, MoneyAmount(1 + randomAmount.nextInt(100))))
   }
 
   def getCustomers: Seq[(String, String, String, String)] = {

@@ -91,7 +91,7 @@ class Bank(name: String, city: String, country: String, email: String) {
     depositAccounts(accountId) withdraw money
   }
 
-  def transactCreditCard(accountId: UUID, money: MoneyAmount): Unit = {
+  def useCreditCard(accountId: UUID, money: MoneyAmount): Unit = {
     require(lendingAccounts.contains(accountId), s"no accountId found with ID: $accountId")
     lendingAccounts(accountId) withdraw money
   }
