@@ -75,6 +75,7 @@ val long = 100 toLong
 
 println("================================= create your own prefix operator =================================")
 println("===================================================================================================")
+
 class TextLabel(val string: String) {
   def unary_! = new TextLabel(string + "!!")
 
@@ -100,7 +101,6 @@ println("=======================================================================
 //
 //val q3 = q1 + q2
 //q3.n
-
 
 
 println("======================================== function literal ===========================================")
@@ -143,12 +143,12 @@ s5(1, 2)
 s6(2, 3)
 
 println("=============== when no arguments are applied ================")
-val s7 = addSum(_:Int, _:Int, _:Int)
+val s7 = addSum(_: Int, _: Int, _: Int)
 println("=============== underscore represent the entire parameter list ================")
 val s8 = addSum _
 
-s7(1,2,3)
-s8(1,2,3)
+s7(1, 2, 3)
+s8(1, 2, 3)
 
 
 println("===================================================== closures =================================================")
@@ -165,7 +165,7 @@ case1Sum(80)
 
 var case2Sum = 0
 val calculateSum = (numbers: Seq[Int]) => numbers.foreach(case2Sum += _)
-calculateSum(Seq(1,2,3,4,5,6,7,8,9,10))
+calculateSum(Seq(1, 2, 3, 4, 5, 6, 7, 8, 9, 10))
 case2Sum
 
 def multiplier(factor: Int) = (x: Int) => x * factor
@@ -180,17 +180,17 @@ println("=======================================================================
 
 println("=============== w/out repeated parameters ================")
 def lengthOfStrings(strings: Seq[String]): Unit =
-  strings.foreach( s => println(s"${s} -> ${s.length}"))
+  strings.foreach(s => println(s"${s} -> ${s.length}"))
 lengthOfStrings(Seq("a", "bb", "ccc"))
 
 println("=============== with repeated parameters ================")
 def lengthOfStringsR(strings: String*): Unit =
-  strings.foreach( s => println(s"${s} -> ${s.length}"))
+  strings.foreach(s => println(s"${s} -> ${s.length}"))
 lengthOfStrings(strings = Seq("a", "bb", "ccc"))
 
 println("=============== with repeated parameters but caller has array ================")
 def incrementBy1(nums: Int*) = nums.map(_ + 1)
-val arr = Array(1,2,3,4,5)
+val arr = Array(1, 2, 3, 4, 5)
 incrementBy1(arr: _*)
 
 
@@ -199,7 +199,7 @@ println("=======================================================================
 val n = 5
 def sumR(n: Int): Int = {
   if (n == 1) 1
-  else n + sumR(n-1)
+  else n + sumR(n - 1)
 }
 sumR(10)
 
@@ -207,10 +207,102 @@ println("=============== tail recursion ================")
 def sumTR(n: Int): Int = {
   @tailrec
   def go(currentNum: Int, totalSoFar: Int = 0): Int = {
-    if(currentNum == 0) totalSoFar
-    else go(currentNum -1, totalSoFar + currentNum)
+    if (currentNum == 0) totalSoFar
+    else go(currentNum - 1, totalSoFar + currentNum)
   }
+
   go(n)
 }
 sumTR(10)
+
+println("===================================================== function value ==========================================")
+println("================================================================================================================")
+
+case class Priority(value: String)
+
+case class Status(value: String)
+
+case class Task(value: String, priority: Priority, status: Status)
+
+val high = Priority("high")
+val medium = Priority("medium")
+val low = Priority("low")
+
+val todo = Status("done")
+val inProgress = Status("inProgress")
+val done = Status("done")
+
+val t1 = Task("Task 1", high, inProgress)
+val t2 = Task("Task 2", low, inProgress)
+val t3 = Task("Task 3", medium, todo)
+val t4 = Task("Task 4", high, todo)
+val t5 = Task("Task 5", high, inProgress)
+val t6 = Task("Task 6", low, done)
+val t7 = Task("Task 7", medium, done)
+val t8 = Task("Task 8", medium, inProgress)
+
+val tasks: Seq[Task] = Seq(t1, t2, t3, t4, t5, t6, t7, t8)
+
+def highPriorityTaskMatcher = (task: Task) => task.priority == high
+def lowPriorityTaskMatcher = (task: Task) => task.priority == low
+def mediumPriorityTaskMatcher = (task: Task) => task.priority == medium
+
+def todoTaskStatusMatcher = (task: Task) => task.status == todo
+def inProgressTaskStatusMatcher = (task: Task) => task.status == inProgress
+def doneTaskStatusMatcher = (task: Task) => task.status == done
+
+def getTasks(taskMatcher: Task => Boolean) = {
+  for (
+    task <- tasks
+    if taskMatcher(task)
+  ) yield task
+}
+
+getTasks(lowPriorityTaskMatcher)
+getTasks(mediumPriorityTaskMatcher)
+getTasks(highPriorityTaskMatcher)
+
+println("===================================================== currying ==========================================")
+println("================================================================================================================")
+
+//function with no currying
+def multiplySimple(a: Int, b: Int) = a * b
+val a = multiplySimple(2, 10)
+
+//function with currying
+def multipleCurry(a: Int)(b: Int) = a * b
+
+val b = multipleCurry(2)(10)
+val c = multipleCurry(2) _
+b == c(10)
+
+println("===================================================== for each ==========================================")
+println("================================================================================================================")
+val numbers = List(1,2,3,4)
+numbers.foreach(n => println(n))
+numbers.foreach{ n => println(n)}
+
+println("===================================================== control abstraction ==========================================")
+println("================================================================================================================")
+// for some reason i'm getting error on System methods
+//def time(n: Int)(operation: Int => Unit): Unit = {
+//  val startTime = System.currentTimeMillis()
+//  operation(n)
+//  val elapsedTime = System.currentTimeMillis() - startTime
+//  print(s" took $elapsedTime ms")
+//}
+//
+//val operation = (n: Int) => {
+//  Thread.sleep(1000)
+//  val numbers = (1 to n).toList
+//  println(s"Sum of first $n numbers is ${numbers.sum}")
+//}
+//
+//time(100)(operation)
+//time(100){operation}
+//time(100){ n: Int =>
+//  val numbers = (1 to n).toList
+//  println(s"Sum of first $n numbers is ${numbers.sum}")
+//}
+
 
