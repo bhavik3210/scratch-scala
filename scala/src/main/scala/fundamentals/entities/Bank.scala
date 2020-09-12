@@ -6,7 +6,7 @@ import java.util.UUID
 
 class Bank(name: String, city: String, country: String, email: String) {
 
-  private var depositProducts: Map[UUID, Deposits] = Map.empty
+  private var depositProducts: Map[UUID, Deposit] = Map.empty
   private var depositAccounts: Map[UUID, DepositAccount] = Map.empty
   private var lendingProducts: Map[UUID, Lending] = Map.empty
   private var lendingAccounts: Map[UUID, LendingAccount] = Map.empty

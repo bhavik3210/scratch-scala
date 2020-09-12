@@ -285,24 +285,26 @@ numbers.foreach{ n => println(n)}
 println("===================================================== control abstraction ==========================================")
 println("================================================================================================================")
 // for some reason i'm getting error on System methods
-//def time(n: Int)(operation: Int => Unit): Unit = {
-//  val startTime = System.currentTimeMillis()
-//  operation(n)
-//  val elapsedTime = System.currentTimeMillis() - startTime
-//  print(s" took $elapsedTime ms")
-//}
-//
-//val operation = (n: Int) => {
-//  Thread.sleep(1000)
-//  val numbers = (1 to n).toList
-//  println(s"Sum of first $n numbers is ${numbers.sum}")
-//}
-//
-//time(100)(operation)
-//time(100){operation}
-//time(100){ n: Int =>
-//  val numbers = (1 to n).toList
-//  println(s"Sum of first $n numbers is ${numbers.sum}")
-//}
+def time(n: Int)(operation: Int => Unit): Unit = {
+  val startTime = System.currentTimeMillis()
+  operation(n)
+  val elapsedTime = System.currentTimeMillis() - startTime
+  print(s" took $elapsedTime ms")
+}
+
+val operation = (n: Int) => {
+  Thread.sleep(1000)
+  val numbers = (1 to n).toList
+  println(s"Sum of first $n numbers is ${numbers.sum}")
+}
+
+time(100)(operation)
+time(100){operation}
+time(100){ n: Int =>
+  val numbers = (1 to n).toList
+  println(s"Sum of first $n numbers is ${numbers.sum}")
+}
+
+
 
 

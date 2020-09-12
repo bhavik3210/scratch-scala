@@ -16,14 +16,14 @@ abstract class Product {
   override def toString: String = s"product=$name"
 }
 
-abstract class Deposits extends Product {
+abstract class Deposit extends Product {
   val rate: Double
   val minimumBalanceRequired: MoneyAmount
 }
 
-abstract class Checking extends Deposits
+abstract class Checking extends Deposit
 
-abstract class Saving extends Deposits {
+abstract class Saving extends Deposit {
   val transactionsAllowedPerMonth: Int
 }
 
