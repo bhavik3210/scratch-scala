@@ -51,8 +51,11 @@ object BankOfScala {
       bank payCreditCard(_, MoneyAmount(1 + randomAmount.nextInt(100)))
     }
 
-    printSeparators(heading = "Statistics")
+    printSeparators(heading = "Requesting Currency")
+    bank.requestCurrency(depositAccountIds.head, "120 USD")
+    bank.requestCurrency(depositAccountIds.tail.head, "120 CAD")
 
+    printSeparators(heading = "Statistics")
     val dAccounts = depositAccountIds flatMap {
       bank.getDepositAccounts
     }

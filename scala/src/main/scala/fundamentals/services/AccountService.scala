@@ -2,7 +2,7 @@ package fundamentals.services
 
 import java.util.UUID
 
-import fundamentals.entities.{DepositAccount, LendingAccount, MoneyAmount}
+import fundamentals.entities.{Currency, DepositAccount, LendingAccount, MoneyAmount}
 
 trait AccountService extends AccountsDb with CustomerService with ProductService {
 
@@ -32,6 +32,11 @@ trait AccountService extends AccountsDb with CustomerService with ProductService
   def withdraw(accountId: UUID, money: MoneyAmount): Unit = {
     require(getDepositAccounts(accountId).nonEmpty, s"no accountId found with ID: $accountId")
     getDepositAccounts(accountId).get withdraw money
+  }
+
+  def requestCurrency(accountId: UUID, currency: Currency): Unit = {
+    withdraw(accountId, currency.costInMoney)
+    println(s"The ${currency.amount} ${currency.code} will be posted to your nearest branch in 2 days.")
   }
 
   def useCreditCard(accountId: UUID, money: MoneyAmount): Unit = {
