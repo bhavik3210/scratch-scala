@@ -1,16 +1,14 @@
 package fundamentals.entities
 
-import java.time.LocalDate
-import java.util.UUID
-
-import fundamentals.services.{AccountService, CustomerService, ProductService}
+import fundamentals.services.{AccountService, CustomerService, ProductService, StatisticsService}
 
 
 class Bank(name: String, city: String, country: String, email: String) extends CustomerService
   with ProductService
-  with AccountService {
+  with AccountService
+  with StatisticsService {
 
-  println(s"\n $name Created on ${LocalDate.now()} \n")
+  println(s"\n$name Created\n")
 
   override def toString: String = s"[$name]" +
     s" - ${numberOfCustomers} customers" +

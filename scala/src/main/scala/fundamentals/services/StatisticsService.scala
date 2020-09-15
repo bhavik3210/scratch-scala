@@ -12,7 +12,10 @@ trait StatisticsService {
   }
 
   def getNumTransactionsByAccount(accounts: Seq[Account]): Map[String, Int] = {
-//    val tuples: Seq[AccountCategory, Int] =
-    return Map.empty
+    val tuples: Seq[(AccountCategory, Int)] = accounts.map { a => a.category -> a.transactions.length}
+    val categoryToTuples: Map[AccountCategory, Seq[(AccountCategory, Int)]] = tuples.groupBy(_._1)
+    categoryToTuples map {
+      case (accountCategory, rest) => accountCategory.toString -> rest.map(_._2).sum
+    }
   }
 }

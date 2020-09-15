@@ -3,13 +3,18 @@ package fundamentals.entities
 import java.util.UUID
 
 sealed trait TransactionType
+
 case object In extends TransactionType
+
 case object Out extends TransactionType
 
 case class Transaction(customer: Customer, amount: MoneyAmount,
-                      transactionType: TransactionType, accountCategory: AccountCategory)
+                       transactionType: TransactionType, accountCategory: AccountCategory)
+
 sealed trait AccountCategory
+
 case object DepositA extends AccountCategory
+
 case object LendingA extends AccountCategory
 
 abstract class Account {
@@ -17,10 +22,12 @@ abstract class Account {
   val customer: Customer
   val product: Product
   val category: AccountCategory
-  var transactions: Seq[Transaction] = Seq.empty
 
   def getBalance: MoneyAmount
+
   override def toString: String = s"$customer with $product has remaining balance of $getBalance"
+
+  var transactions: Seq[Transaction] = Seq.empty
 }
 
 class DepositAccount(val customer: Customer, val product: Product, private var balance: MoneyAmount) extends Account {
