@@ -84,7 +84,6 @@ object BankOfScala {
     println(s"CustomerIds: $customerIds \n")
     println(s"Deposit Products Ids: $depositProductIds \n")
     println(s"Lending Products Ids: $lendingProductIds \n")
-    println("*" * 100)
   }
 
   def getCustomers: Seq[(String, String, String, String)] = {
