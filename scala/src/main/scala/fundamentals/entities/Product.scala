@@ -2,6 +2,10 @@ package fundamentals.entities
 
 import java.util.UUID
 
+sealed trait ProductCategory
+case object DepositP extends ProductCategory
+case object LendingP extends ProductCategory
+
 object PRODUCT_TYPES extends Enumeration {
   val BASIC_CHECKING: PRODUCT_TYPES.Value = Value("Basic Checking")
   val STUDENT_CHECKING: PRODUCT_TYPES.Value = Value("Student Checking")
@@ -12,18 +16,20 @@ object PRODUCT_TYPES extends Enumeration {
 abstract class Product {
   val id: UUID = UUID.randomUUID()
   val name: String
+  val category: ProductCategory
 
   override def toString: String = s"product=$name"
 }
 
-abstract class Deposits extends Product {
+abstract class Deposit extends Product {
   val rate: Double
   val minimumBalanceRequired: MoneyAmount
+  val category: ProductCategory = DepositP
 }
 
-abstract class Checking extends Deposits
+abstract class Checking extends Deposit
 
-abstract class Saving extends Deposits {
+abstract class Saving extends Deposit {
   val transactionsAllowedPerMonth: Int
 }
 
@@ -61,4 +67,5 @@ class CreditCard(fee: Double, rate: Double, pct: Double) extends Lending {
   override val annualPercentageRate: Double = rate
   override val rewardsPercentage: Double = pct
   override val name: String = "Credit Card"
+  override val category: ProductCategory = LendingP
 }
