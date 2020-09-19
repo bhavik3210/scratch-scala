@@ -11,9 +11,7 @@ GET /product/:prodType/:prodNum controllers.Application.product(prodType, prodNu
 
 GET /login1 controllers.TaskList1.login
 GET /validateGet1 controllers.TaskList1.validateLoginGet(username, password)
-+ nocsrf
 POST /validatePost1 controllers.TaskList1.validateLoginPost
-+ nocsrf
 POST /createUser1 controllers.TaskList1.createUser
 GET   /taskList1  controllers.TaskList1.taskList
 GET /logout1 controllers.TaskList1.logout
