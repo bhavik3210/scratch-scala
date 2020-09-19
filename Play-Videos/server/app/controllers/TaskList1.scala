@@ -23,7 +23,21 @@ class TaskList1 @Inject()(cc: ControllerComponents) extends AbstractController(c
       val password = args("password").head
 
       if (TaskListInMemoryModel.validateUser(username, password))
-        Redirect(routes.TaskList1.taskList())
+        Redirect(routes.TaskList1.taskList()).withSession("username" -> username)
+      else
+        Redirect(routes.TaskList1.login())
+
+    }.getOrElse(Redirect(routes.TaskList1.login()))
+  }
+
+  def createUser = Action { request =>
+    val body = request.body.asFormUrlEncoded
+    body.map { args =>
+      val username = args("username").head
+      val password = args("password").head
+
+      if (TaskListInMemoryModel.createUser(username, password))
+        Redirect(routes.TaskList1.taskList()).withSession("username" -> username)
       else
         Redirect(routes.TaskList1.login())
 
@@ -31,7 +45,8 @@ class TaskList1 @Inject()(cc: ControllerComponents) extends AbstractController(c
   }
 
   def taskList = Action {
-    val tasks = List("task1", "task2", "task3")
+    val username = "bhavik"
+    val tasks = TaskListInMemoryModel.getTasks(username)
     Ok(views.html.taskList1(tasks))
   }
 
