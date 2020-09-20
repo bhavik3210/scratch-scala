@@ -8,3 +8,9 @@ GET     /                           controllers.HomeController.index
 
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.versioned(path="/public", file: Asset)
+
+# Tasks
+GET     /tasks/:id                  controllers.TaskController.getTasks(id: String)
+POST    /tasks                      controllers.TaskController.addTask
+PATCH   /tasks/:id                  controllers.TaskController.updateTask(id: String)
+DELETE  /tasks/:id                  controllers.TaskController.removeTask(id: String)
