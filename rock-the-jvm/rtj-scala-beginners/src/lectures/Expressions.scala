@@ -1,4 +1,4 @@
-package playground
+package lectures
 
 object Expressions extends App {
   val x = 1 + 2 // expression
@@ -23,9 +23,9 @@ object Expressions extends App {
 
   // IF expression
   val aCondition = true
-  val aConditionValue = if(aCondition) 5 else 3 // called "if expression"
+  val aConditionValue = if (aCondition) 5 else 3 // called "if expression"
   println(aConditionValue)
-  println(if(aCondition) 5 else 3)
+  println(if (aCondition) 5 else 3)
   println(1 + 3)
 
   /**
@@ -35,7 +35,7 @@ object Expressions extends App {
   var i = 0
   while (i < 10) {
     println(i)
-    i+=1
+    i += 1
   }
 
   val aWeirdValue = (aVariable = 3) // returns Unit === void in java
