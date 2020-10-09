@@ -4,4 +4,3 @@ import fundamentals.entities.BankOfScala.bankOfScala
 object MainApp extends App {
   bankOfScala()
 }
-w
