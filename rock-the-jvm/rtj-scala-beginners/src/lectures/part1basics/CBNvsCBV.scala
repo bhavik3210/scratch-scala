@@ -1,4 +1,4 @@
-package lectures
+package lectures.part1basics
 
 object CBNvsCBV extends App {
 
@@ -6,16 +6,18 @@ object CBNvsCBV extends App {
     println("by VALUE: " + x)
     println("by VALUE: " + x)
   }
+
   //equivalent to
-//  def calledByValue(40617842083487): Unit = {
-//    println("by VALUE: " + "40617842083487")
-//    println("by VALUE: " + "40617842083487")
-//  }
+  //  def calledByValue(40617842083487): Unit = {
+  //    println("by VALUE: " + "40617842083487")
+  //    println("by VALUE: " + "40617842083487")
+  //  }
 
   def calledByName(x: => Long): Unit = {
     println("by NAME: " + x)
     println("by NAME: " + x)
   }
+
   //equivalent to
   //  def calledByName(System.nanoTime()): Unit = {
   //    println("by NAME: " + System.nanoTime())
@@ -27,6 +29,7 @@ object CBNvsCBV extends App {
 
 
   def infinite(): Int = 1 + infinite()
+
   def printFirst(x: Int, y: => Int) = println(x)
 
   // printFirst(infinite(), 34) //this will crash

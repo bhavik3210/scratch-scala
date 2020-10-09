@@ -1,5 +1,4 @@
-
-package lectures
+package lectures.part1basics
 
 object Functions extends App {
 
@@ -58,8 +57,9 @@ object Functions extends App {
       if (t <= 1) true
       else n % t != 0 && isPrimeUntil(t - 1)
 
-    isPrimeUntil(n/2)
+    isPrimeUntil(n / 2)
   }
+
   println(isPrime(37))
   println(isPrime(2003))
   println(isPrime(24))
