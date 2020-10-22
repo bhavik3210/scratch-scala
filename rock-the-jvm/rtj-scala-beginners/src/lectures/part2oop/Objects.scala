@@ -3,7 +3,7 @@ package lectures.part2oop
 object Objects extends App {
 
   // Scala does not have class-level functionality ("static")
-  object Person { // type + its only instance
+  object Person { // type + its only instance, singletons
     // "static"/"class" - level functionality
     val N_EYES = 2
 
@@ -23,6 +23,7 @@ object Objects extends App {
    object (singleton instance) and instance (regular instance) based things go into class.
    You can have multiple instance of class Person but there is also a singleton instance
    Person that is represented through declaration of object Person
+   can access each other's private members
    */
 
   println(Person.N_EYES)
