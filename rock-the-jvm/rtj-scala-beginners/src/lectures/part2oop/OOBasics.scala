@@ -20,7 +20,7 @@ object OOBasics extends App {
 
   /**
    * all of these methods in counter class doesn't manipulate the value inside the
-   * object, instead they return a who new object with the new manipulated value, immutability
+   * object, instead they return a new object with the new manipulated value, immutability
    */
   counter.incrementByOne.print
   counter.incrementByOne.incrementByOne.incrementByOne.print
@@ -66,12 +66,12 @@ class Counter(val value: Int = 0) {
 
   def increment(incrementBy: Int): Counter = {
     if (incrementBy <= 0) this
-    else incrementByOne.increment(incrementBy-1)
+    else incrementByOne.increment(incrementBy - 1)
   }
 
   def decrement(decrementBy: Int): Counter = {
     if (decrementBy <= 0) this
-    else decrementByOne.decrement(decrementBy-1)
+    else decrementByOne.decrement(decrementBy - 1)
   }
 
   def print = println(value)

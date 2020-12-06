@@ -40,6 +40,7 @@ object Inheritance extends App {
   dog.eat
   println(dog.creatureType)
 
+  // type substitution (broad: polymorphism)
   val unknownAnimal: Animal = new Dog("K9")
   unknownAnimal.eat
 

@@ -47,14 +47,13 @@ object MethodNotations extends App {
 
   // prefix notation
   val x = -1 // equivalent with 1.unary_-
-  val sameAsX = 1.unary_-
-  // unary_ prefix only work with - + ~ !
+  val sameAsX = 1.unary_- // unary_ prefix only work with - + ~ !
 
   println(!mary)
-  println(mary.unary_!)
+  println(mary.unary_!) //equivalent to above !mary
 
   // postfix notation
-  println(mary.isAlive)
+  println(mary.isAlive) // used more widely in practice
   println(mary isAlive)
 
   // apply (special case and more used in scala)
@@ -71,4 +70,5 @@ object MethodNotations extends App {
   println(+mary age)
   println(mary learnScala)
   println(mary.apply(3))
+  println(mary(3))
 }
