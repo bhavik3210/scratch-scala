@@ -16,8 +16,8 @@ abstract class MyList[+A] {
 
 
 object Empty extends MyList[Nothing] {
-  val head: Nothing = ???
-  val tail: MyList[Nothing] = ???
+  val head: Nothing = throw new NoSuchElementException
+  val tail: MyList[Nothing] = throw new NoSuchElementException
 
   def isEmpty: Boolean = true
 
@@ -40,14 +40,14 @@ class Cons[+A](h: A, t: MyList[A]) extends MyList[A] {
 }
 
 object ListTest extends App {
-//  val list = new Cons(1, new Cons(2, new Cons(3, Empty)))
-//  println(list.tail.head)
-//  println(list.add(4).head)
-//  println(list.toString)
-//
-//  val listOfIntegers: MyList[Int] = new Cons(1, new Cons(2, new Cons(3, Empty)))
-//  val listOfStrings: MyList[String] = new Cons("Hello", new Cons(",", new Cons("World", Empty)))
-//
-//  println(listOfIntegers.toString)
-//  println(listOfStrings.toString)
+  val list = new Cons(1, new Cons(2, new Cons(3, Empty)))
+  println(list.tail.head)
+  println(list.add(4).head)
+  println(list.toString)
+  //
+  //  val listOfIntegers: MyList[Int] = new Cons(1, new Cons(2, new Cons(3, Empty)))
+  //  val listOfStrings: MyList[String] = new Cons("Hello", new Cons(",", new Cons("World", Empty)))
+  //
+  //  println(listOfIntegers.toString)
+  //  println(listOfStrings.toString)
 }

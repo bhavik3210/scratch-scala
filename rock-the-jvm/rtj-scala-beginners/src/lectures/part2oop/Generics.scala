@@ -13,10 +13,13 @@ object Generics extends App {
 
   // generic methods
   object MyList {
-    def empty[A]: MyList[A] = ???
+//    def empty[A]: MyList[A] = ???
+//    def add[B >: A](element: B): MyList[B] = ??? // if a supertype of B is added onto the list of A then the list will turn into A
   }
 
-  val emptyListOfIntegers = MyList.empty[Int]
+//  val emptyListOfIntegers = MyList.empty[Int]
+
+//  println(emptyListOfIntegers.getClass)
 
   // variance problem
   class Animal
@@ -49,7 +52,8 @@ object Generics extends App {
   val trainer: Trainer[Cat] = new Trainer[Animal] //valid
 
   // bounded types (upper and lower) < or >
-  class Cage[A <: Animal](animal: A)
+  class Cage[A <: Animal](animal: A) // cage only accept that is a Subtype of Animal class
+//  class Cage[A >: Animal](animal: A) // cage only accept that is a Supertype of Animal class
 
   val cage = new Cage(new Dog)
 

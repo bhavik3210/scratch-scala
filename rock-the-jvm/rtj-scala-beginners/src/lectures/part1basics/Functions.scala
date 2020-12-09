@@ -21,7 +21,7 @@ object Functions extends App {
     else aString + aRepeatedFunction(aString, n - 1)
   }
 
-  println(aRepeatedFunction("hello", 3))
+  println(aRepeatedFunction("hello ", 3))
 
   // Side effect
   def aFunctionWithSideEffects(aString: String): Unit = println(aString)
