@@ -1,8 +1,9 @@
 package exercises
 
 abstract class MyList[+A] {
-  val head: A
-  val tail: MyList[A]
+  def head: A
+
+  def tail: MyList[A]
 
   def isEmpty: Boolean
 
@@ -23,8 +24,9 @@ abstract class MyList[+A] {
 
 
 case object Empty extends MyList[Nothing] {
-  val head: Nothing = throw new NoSuchElementException
-  val tail: MyList[Nothing] = throw new NoSuchElementException
+  def head: Nothing = throw new NoSuchElementException
+
+  def tail: MyList[Nothing] = throw new NoSuchElementException
 
   def isEmpty: Boolean = true
 
@@ -42,8 +44,9 @@ case object Empty extends MyList[Nothing] {
 }
 
 class Cons[+A](h: A, t: MyList[A]) extends MyList[A] {
-  val head: A = h
-  val tail: MyList[A] = t
+  def head: A = h
+
+  def tail: MyList[A] = t
 
   def isEmpty: Boolean = false
 
