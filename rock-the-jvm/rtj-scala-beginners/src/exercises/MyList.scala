@@ -113,13 +113,21 @@ object ListTest extends App {
   val anotherListOfIntegers: MyList[Int] = new Cons(4, new Cons(5, Empty))
   val listOfStrings: MyList[String] = new Cons("Hello", new Cons("Scala", Empty))
 
-  //  println(list.tail.head)
-  //  println(list.add(4).head)
-  //  println(list.toString)
-  //
-  //    val listOfIntegers: MyList[Int] = new Cons(1, new Cons(2, new Cons(3, Empty)))
-  //    val listOfStrings: MyList[String] = new Cons("Hello", new Cons(",", new Cons("World", Empty)))
-  //
-  //    println(listOfIntegers.toString)
-  //    println(listOfStrings.toString)
+  println(listOfIntegers.toString)
+  println(listOfStrings.toString)
+
+  // println(listOfIntegers.map((elem: Int) => elem * 2).toString) - same as below
+  println(listOfIntegers.map(new MyTransformer[Int, Int] {
+    override def transform(elem: Int): Int = elem * 2
+  }).toString)
+
+  // println(listOfIntegers.filter((elem: Int) => elem % 2 == 0)) - same as below
+  println(listOfIntegers.filter(new MyPredicate[Int] {
+    override def test(elem: Int): Boolean = elem % 2 == 0
+  }))
+
+  println((listOfIntegers ++ anotherListOfIntegers).toString)
+  println(listOfIntegers.flatMap(new MyTransformer[Int, MyList[Int]] {
+    override def transform(elem: Int): MyList[Int] = new Cons(elem, new Cons(elem + 1, Empty))
+  }).toString)
 }
