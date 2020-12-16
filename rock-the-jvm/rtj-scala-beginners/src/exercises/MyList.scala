@@ -1,5 +1,13 @@
 package exercises
 
+trait MyPredicate[-T] {
+  def test(elem: T): Boolean
+}
+
+trait MyTransformer[-A, B] {
+  def transform(elem: A): B
+}
+
 abstract class MyList[+A] {
   def head: A
 
@@ -7,6 +15,10 @@ abstract class MyList[+A] {
 
   def isEmpty: Boolean
 
+  /*
+    if supertype of A is being added to the list then
+    this is going to return new list of that supertype of B
+   */
   def add[B >: A](element: B): MyList[B] // handling covariance situation
 
   def printElements: String
@@ -97,14 +109,6 @@ class Cons[+A](h: A, t: MyList[A]) extends MyList[A] {
   def flatMap[B](transformer: MyTransformer[A, MyList[B]]): MyList[B] =
     transformer.transform(h) ++ t.flatMap(transformer)
 
-}
-
-trait MyPredicate[-T] {
-  def test(elem: T): Boolean
-}
-
-trait MyTransformer[-A, B] {
-  def transform(elem: A): B
 }
 
 object ListTest extends App {
