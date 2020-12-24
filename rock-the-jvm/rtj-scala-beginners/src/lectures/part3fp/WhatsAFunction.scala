@@ -37,9 +37,21 @@ object WhatsAFunction extends App {
 
 
   // 1. a function which takes 2 strings and concatenates them
-  val concater = new ((String, String) => String) {
+  val concatenator = new ((String, String) => String) {
     override def apply(v1: String, v2: String): String = s"$v1 $v2"
   }
+  println(concatenator("first", "last"))
+
+  // 3.
+  val superAdder: Function1[Int, Function1[Int, Int]] = new Function1[Int, Function1[Int, Int]] {
+    override def apply(x: Int): Function1[Int, Int] = new Function[Int, Int] {
+      override def apply(y: Int): Int = x + y
+    }
+  }
+
+  val adder3 = superAdder(3)
+  println(adder3(4))
+  println(superAdder(3)(4)) // curried function
 }
 
 class Action {
