@@ -125,17 +125,15 @@ object ListTest extends App {
   //  println(listOfIntegers.map(new MyTransformer[Int, Int] {
   //    override def transform(elem: Int): Int = elem * 2
   //  }).toString)
-  println(listOfIntegers.map(new Function1[Int, Int] {
-    override def apply(elem: Int): Int = elem * 2
-  }).toString)
+
+//  println(listOfIntegers.map((x: Int) => x * 2).toString)
+//  println(listOfIntegers.map(x => x * 2).toString)
+  println(listOfIntegers.map(_ * 2).toString)
 
   // println(listOfIntegers.filter((elem: Int) => elem % 2 == 0)) - same as below
-  println(listOfIntegers.filter(new Function1[Int, Boolean] {
-    override def apply(elem: Int): Boolean = elem % 2 == 0
-  }))
+  // println(listOfIntegers.filter(elem => elem % 2 == 0)) - same as below
+  println(listOfIntegers.filter(_ % 2 == 0 ))
 
   println((listOfIntegers ++ anotherListOfIntegers).toString)
-  println(listOfIntegers.flatMap(new Function1[Int, MyList[Int]] {
-    override def apply(elem: Int): MyList[Int] = new Cons(elem, new Cons(elem + 1, Empty))
-  }).toString)
+  println(listOfIntegers.flatMap(elem => new Cons(elem, new Cons(elem + 1, Empty))).toString)
 }
