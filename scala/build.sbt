@@ -1,4 +1,4 @@
-name := "scala"
+name := "scala-playground"
 organization in ThisBuild := "com.playground"
 version := "0.1"
 scalaVersion := "2.13.3"
